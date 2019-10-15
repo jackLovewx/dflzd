@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdb.dflz.mbg.mapper.LearnAndTestLogMapper">
+  <resultMap id="BaseResultMap" type="com.cdb.dflz.mbg.model.LearnAndTestLog">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="cycleNum" jdbcType="INTEGER" property="cyclenum" />
+    <result column="monLearnStatus" jdbcType="INTEGER" property="monlearnstatus" />
+    <result column="tuesLearnStatus" jdbcType="INTEGER" property="tueslearnstatus" />
+    <result column="wedLearnStatus" jdbcType="INTEGER" property="wedlearnstatus" />
+    <result column="thurLearnStatus" jdbcType="INTEGER" property="thurlearnstatus" />
+    <result column="friLearnStatus" jdbcType="INTEGER" property="frilearnstatus" />
+    <result column="learnRate" jdbcType="REAL" property="learnrate" />
+    <result column="monTestStatus" jdbcType="INTEGER" property="monteststatus" />
+    <result column="tuesTestStatus" jdbcType="INTEGER" property="tuesteststatus" />
+    <result column="wedTestStatus" jdbcType="INTEGER" property="wedteststatus" />
+    <result column="thurTestStatus" jdbcType="INTEGER" property="thurteststatus" />
+    <result column="friTestStatus" jdbcType="INTEGER" property="friteststatus" />
+    <result column="testRate" jdbcType="REAL" property="testrate" />
+    <result column="testCorrectRate" jdbcType="REAL" property="testcorrectrate" />
+    <result column="userId" jdbcType="VARCHAR" property="userid" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="orgNum" jdbcType="VARCHAR" property="orgnum" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, cycleNum, monLearnStatus, tuesLearnStatus, wedLearnStatus, thurLearnStatus, friLearnStatus, 
+    learnRate, monTestStatus, tuesTestStatus, wedTestStatus, thurTestStatus, friTestStatus, 
+    testRate, testCorrectRate, userId, userName, orgNum, createTime
+  </sql>
+  <select id="selectByExample" parameterType="com.cdb.dflz.mbg.model.LearnAndTestLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from m_dflz_learnandtestlog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from m_dflz_learnandtestlog
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from m_dflz_learnandtestlog
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cdb.dflz.mbg.model.LearnAndTestLogExample">
+    delete from m_dflz_learnandtestlog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cdb.dflz.mbg.model.LearnAndTestLog">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into m_dflz_learnandtestlog (cycleNum, monLearnStatus, tuesLearnStatus, 
+      wedLearnStatus, thurLearnStatus, friLearnStatus, 
+      learnRate, monTestStatus, tuesTestStatus, 
+      wedTestStatus, thurTestStatus, friTestStatus, 
+      testRate, testCorrectRate, userId, 
+      userName, orgNum, createTime
+      )
+    values (#{cyclenum,jdbcType=INTEGER}, #{monlearnstatus,jdbcType=INTEGER}, #{tueslearnstatus,jdbcType=INTEGER}, 
+      #{wedlearnstatus,jdbcType=INTEGER}, #{thurlearnstatus,jdbcType=INTEGER}, #{frilearnstatus,jdbcType=INTEGER}, 
+      #{learnrate,jdbcType=REAL}, #{monteststatus,jdbcType=INTEGER}, #{tuesteststatus,jdbcType=INTEGER}, 
+      #{wedteststatus,jdbcType=INTEGER}, #{thurteststatus,jdbcType=INTEGER}, #{friteststatus,jdbcType=INTEGER}, 
+      #{testrate,jdbcType=REAL}, #{testcorrectrate,jdbcType=REAL}, #{userid,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{orgnum,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cdb.dflz.mbg.model.LearnAndTestLog">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into m_dflz_learnandtestlog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cyclenum != null">
+        cycleNum,
+      </if>
+      <if test="monlearnstatus != null">
+        monLearnStatus,
+      </if>
+      <if test="tueslearnstatus != null">
+        tuesLearnStatus,
+      </if>
+      <if test="wedlearnstatus != null">
+        wedLearnStatus,
+      </if>
+      <if test="thurlearnstatus != null">
+        thurLearnStatus,
+      </if>
+      <if test="frilearnstatus != null">
+        friLearnStatus,
+      </if>
+      <if test="learnrate != null">
+        learnRate,
+      </if>
+      <if test="monteststatus != null">
+        monTestStatus,
+      </if>
+      <if test="tuesteststatus != null">
+        tuesTestStatus,
+      </if>
+      <if test="wedteststatus != null">
+        wedTestStatus,
+      </if>
+      <if test="thurteststatus != null">
+        thurTestStatus,
+      </if>
+      <if test="friteststatus != null">
+        friTestStatus,
+      </if>
+      <if test="testrate != null">
+        testRate,
+      </if>
+      <if test="testcorrectrate != null">
+        testCorrectRate,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="username != null">
+        userName,
+      </if>
+      <if test="orgnum != null">
+        orgNum,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cyclenum != null">
+        #{cyclenum,jdbcType=INTEGER},
+      </if>
+      <if test="monlearnstatus != null">
+        #{monlearnstatus,jdbcType=INTEGER},
+      </if>
+      <if test="tueslearnstatus != null">
+        #{tueslearnstatus,jdbcType=INTEGER},
+      </if>
+      <if test="wedlearnstatus != null">
+        #{wedlearnstatus,jdbcType=INTEGER},
+      </if>
+      <if test="thurlearnstatus != null">
+        #{thurlearnstatus,jdbcType=INTEGER},
+      </if>
+      <if test="frilearnstatus != null">
+        #{frilearnstatus,jdbcType=INTEGER},
+      </if>
+      <if test="learnrate != null">
+        #{learnrate,jdbcType=REAL},
+      </if>
+      <if test="monteststatus != null">
+        #{monteststatus,jdbcType=INTEGER},
+      </if>
+      <if test="tuesteststatus != null">
+        #{tuesteststatus,jdbcType=INTEGER},
+      </if>
+      <if test="wedteststatus != null">
+        #{wedteststatus,jdbcType=INTEGER},
+      </if>
+      <if test="thurteststatus != null">
+        #{thurteststatus,jdbcType=INTEGER},
+      </if>
+      <if test="friteststatus != null">
+        #{friteststatus,jdbcType=INTEGER},
+      </if>
+      <if test="testrate != null">
+        #{testrate,jdbcType=REAL},
+      </if>
+      <if test="testcorrectrate != null">
+        #{testcorrectrate,jdbcType=REAL},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="orgnum != null">
+        #{orgnum,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cdb.dflz.mbg.model.LearnAndTestLogExample" resultType="java.lang.Integer">
+    select count(*) from m_dflz_learnandtestlog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update m_dflz_learnandtestlog
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cyclenum != null">
+        cycleNum = #{record.cyclenum,jdbcType=INTEGER},
+      </if>
+      <if test="record.monlearnstatus != null">
+        monLearnStatus = #{record.monlearnstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.tueslearnstatus != null">
+        tuesLearnStatus = #{record.tueslearnstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.wedlearnstatus != null">
+        wedLearnStatus = #{record.wedlearnstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.thurlearnstatus != null">
+        thurLearnStatus = #{record.thurlearnstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.frilearnstatus != null">
+        friLearnStatus = #{record.frilearnstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.learnrate != null">
+        learnRate = #{record.learnrate,jdbcType=REAL},
+      </if>
+      <if test="record.monteststatus != null">
+        monTestStatus = #{record.monteststatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.tuesteststatus != null">
+        tuesTestStatus = #{record.tuesteststatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.wedteststatus != null">
+        wedTestStatus = #{record.wedteststatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.thurteststatus != null">
+        thurTestStatus = #{record.thurteststatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.friteststatus != null">
+        friTestStatus = #{record.friteststatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.testrate != null">
+        testRate = #{record.testrate,jdbcType=REAL},
+      </if>
+      <if test="record.testcorrectrate != null">
+        testCorrectRate = #{record.testcorrectrate,jdbcType=REAL},
+      </if>
+      <if test="record.userid != null">
+        userId = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null">
+        userName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgnum != null">
+        orgNum = #{record.orgnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null">
+        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update m_dflz_learnandtestlog
+    set id = #{record.id,jdbcType=VARCHAR},
+      cycleNum = #{record.cyclenum,jdbcType=INTEGER},
+      monLearnStatus = #{record.monlearnstatus,jdbcType=INTEGER},
+      tuesLearnStatus = #{record.tueslearnstatus,jdbcType=INTEGER},
+      wedLearnStatus = #{record.wedlearnstatus,jdbcType=INTEGER},
+      thurLearnStatus = #{record.thurlearnstatus,jdbcType=INTEGER},
+      friLearnStatus = #{record.frilearnstatus,jdbcType=INTEGER},
+      learnRate = #{record.learnrate,jdbcType=REAL},
+      monTestStatus = #{record.monteststatus,jdbcType=INTEGER},
+      tuesTestStatus = #{record.tuesteststatus,jdbcType=INTEGER},
+      wedTestStatus = #{record.wedteststatus,jdbcType=INTEGER},
+      thurTestStatus = #{record.thurteststatus,jdbcType=INTEGER},
+      friTestStatus = #{record.friteststatus,jdbcType=INTEGER},
+      testRate = #{record.testrate,jdbcType=REAL},
+      testCorrectRate = #{record.testcorrectrate,jdbcType=REAL},
+      userId = #{record.userid,jdbcType=VARCHAR},
+      userName = #{record.username,jdbcType=VARCHAR},
+      orgNum = #{record.orgnum,jdbcType=VARCHAR},
+      createTime = #{record.createtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cdb.dflz.mbg.model.LearnAndTestLog">
+    update m_dflz_learnandtestlog
+    <set>
+      <if test="cyclenum != null">
+        cycleNum = #{cyclenum,jdbcType=INTEGER},
+      </if>
+      <if test="monlearnstatus != null">
+        monLearnStatus = #{monlearnstatus,jdbcType=INTEGER},
+      </if>
+      <if test="tueslearnstatus != null">
+        tuesLearnStatus = #{tueslearnstatus,jdbcType=INTEGER},
+      </if>
+      <if test="wedlearnstatus != null">
+        wedLearnStatus = #{wedlearnstatus,jdbcType=INTEGER},
+      </if>
+      <if test="thurlearnstatus != null">
+        thurLearnStatus = #{thurlearnstatus,jdbcType=INTEGER},
+      </if>
+      <if test="frilearnstatus != null">
+        friLearnStatus = #{frilearnstatus,jdbcType=INTEGER},
+      </if>
+      <if test="learnrate != null">
+        learnRate = #{learnrate,jdbcType=REAL},
+      </if>
+      <if test="monteststatus != null">
+        monTestStatus = #{monteststatus,jdbcType=INTEGER},
+      </if>
+      <if test="tuesteststatus != null">
+        tuesTestStatus = #{tuesteststatus,jdbcType=INTEGER},
+      </if>
+      <if test="wedteststatus != null">
+        wedTestStatus = #{wedteststatus,jdbcType=INTEGER},
+      </if>
+      <if test="thurteststatus != null">
+        thurTestStatus = #{thurteststatus,jdbcType=INTEGER},
+      </if>
+      <if test="friteststatus != null">
+        friTestStatus = #{friteststatus,jdbcType=INTEGER},
+      </if>
+      <if test="testrate != null">
+        testRate = #{testrate,jdbcType=REAL},
+      </if>
+      <if test="testcorrectrate != null">
+        testCorrectRate = #{testcorrectrate,jdbcType=REAL},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="orgnum != null">
+        orgNum = #{orgnum,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cdb.dflz.mbg.model.LearnAndTestLog">
+    update m_dflz_learnandtestlog
+    set cycleNum = #{cyclenum,jdbcType=INTEGER},
+      monLearnStatus = #{monlearnstatus,jdbcType=INTEGER},
+      tuesLearnStatus = #{tueslearnstatus,jdbcType=INTEGER},
+      wedLearnStatus = #{wedlearnstatus,jdbcType=INTEGER},
+      thurLearnStatus = #{thurlearnstatus,jdbcType=INTEGER},
+      friLearnStatus = #{frilearnstatus,jdbcType=INTEGER},
+      learnRate = #{learnrate,jdbcType=REAL},
+      monTestStatus = #{monteststatus,jdbcType=INTEGER},
+      tuesTestStatus = #{tuesteststatus,jdbcType=INTEGER},
+      wedTestStatus = #{wedteststatus,jdbcType=INTEGER},
+      thurTestStatus = #{thurteststatus,jdbcType=INTEGER},
+      friTestStatus = #{friteststatus,jdbcType=INTEGER},
+      testRate = #{testrate,jdbcType=REAL},
+      testCorrectRate = #{testcorrectrate,jdbcType=REAL},
+      userId = #{userid,jdbcType=VARCHAR},
+      userName = #{username,jdbcType=VARCHAR},
+      orgNum = #{orgnum,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
